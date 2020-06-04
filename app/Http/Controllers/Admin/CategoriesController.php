@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Requests\Admin\CategoryRequest;
 class CategoriesController extends Controller
 {
     /**
@@ -25,7 +26,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return  view('admin.categories.form');
     }
 
     /**
@@ -34,9 +35,14 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = Category::create($request->all());
+
+        if($category){
+            return redirect()->route('admin.categories.index')->with(['success' => 'Category Created']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Category Creating failed']);
     }
 
     /**

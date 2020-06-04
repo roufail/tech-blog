@@ -234,19 +234,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
 
           <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Categories</h5>
-              </div>
-              <div class="card-body">
-                {{-- <h6 class="card-title"></h6> --}}
 
-                <p class="card-text">
+
                     @yield('content')
-                </p>
-                {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
-              </div>
-            </div>
+
 
 
           </div>

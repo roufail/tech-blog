@@ -19,7 +19,16 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
     // Route::group(['middleware' => 'auth:admin'],function(){
         Route::get('home', 'DashboardController@index')->name('home');
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-        Route::Resource('categories', 'CategoriesController');
+        Route::Resource('categories', 'CategoriesController',[
+            'names' => [
+                'index' => 'categories.index',
+                'create' => 'categories.create',
+                'store' => 'categories.store',
+                'edit' => 'categories.edit',
+                'update' => 'categories.update',
+                'destroy' => 'categories.destroy',
+            ]
+        ])->except(['show']);
 
     // });
 
