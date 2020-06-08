@@ -23,11 +23,17 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
             'title' => 'required|min:3|max:100',
             'slug' => 'required|min:3|max:100|unique:categories',
             'description' => 'required|min:5',
             'keywords' => 'required|min:5',
         ];
+
+        if($this->category) {
+            $rules['slug'] = 'required|min:3|max:100|unique:categories,id,'.$this->category->id;
+        }
+
+        return $rules;
     }
 }

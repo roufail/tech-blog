@@ -15,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10,['id','title']);
+        $categories = Category::orderby('id','desc')->paginate(10,['id','title']);
         return view('admin.categories.list',compact('categories'));
     }
 
@@ -26,7 +26,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return  view('admin.categories.form');
+        $category = new Category;
+        return  view('admin.categories.form',compact('category'));
     }
 
     /**
@@ -37,6 +38,8 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+
+        $request->merge(['slug' => str_replace(' ','-',strtolower($request->slug)) ]);
         $category = Category::create($request->all());
 
         if($category){
@@ -45,16 +48,6 @@ class CategoriesController extends Controller
         return redirect()->back()->withErrors(['error' => 'Category Creating failed']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -62,9 +55,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.form',compact('category'));
     }
 
     /**
@@ -74,9 +67,15 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $request->merge(['slug' => str_replace(' ','-',strtolower($request->slug)) ]);
+
+        if($category->update($request->all())){
+            return redirect()->route('admin.categories.index')->with(['success' => 'Category Updated']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Category Creating failed']);
+
     }
 
     /**
@@ -85,8 +84,12 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if($category->delete()){
+            return redirect()->route('admin.categories.index')->with(['success' => 'Category Deleted']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Category Deleting failed']);
+
     }
 }

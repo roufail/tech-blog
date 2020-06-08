@@ -33,7 +33,15 @@
                 <tr>
                     <td>{{ $loop->iteration }}.</td>
                     <td>{{ $category->title }}</td>
-                    <td>edit/delete</td>
+                    <td><a href="{{ route('admin.categories.edit',$category->id) }}"><i class="fas fa-edit"></i>&nbsp;Edit</a>/
+
+                        <form method="post" action="{{ route('admin.categories.destroy',$category->id) }}">
+                            @csrf
+                            @method('delete')
+                            <a class="delete-btn" href="javascript:;"><i class="fas fa-trash"></i>&nbsp;Delete</a>
+                        </form>
+
+                    </td>
                 </tr>
                 @endforeach
 
@@ -49,4 +57,40 @@
 <!-- end of content -->
 
 @endsection
+
+
+
+
+
+@section('extra-scripts')
+  <script>
+      jQuery(function($){
+        $('.delete-btn').click(function(event){
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.value) {
+                    $(this).parent().submit();
+                }
+                })
+
+
+
+        });
+      })
+
+  </script>
+@endsection
+
+@push('extra-js')
+<script src="{{ asset('js/sweetalert.js') }}"></script>
+@endpush
 
