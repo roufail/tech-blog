@@ -30,6 +30,18 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
             ]
         ])->except(['show']);
 
+
+
+        Route::Resource('tags', 'TagsController',[
+            'names' => [
+                'index' => 'tags.index',
+                'create' => 'tags.create',
+                'store' => 'tags.store',
+                'edit' => 'tags.edit',
+                'update' => 'tags.update',
+                'destroy' => 'tags.destroy',
+            ]
+        ])->except(['show']);
     // });
 
 });

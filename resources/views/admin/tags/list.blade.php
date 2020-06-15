@@ -1,12 +1,12 @@
 @extends('admin.template.master')
 
-@section('page-title','Categories')
+@section('page-title','Tags')
 @section('content')
  <!-- start of content -->
  <div class="card">
     <div class="card-header">
-      <h5 class="m-0">Categories</h5>
-      <div class="float-right"><a href="{{ route('admin.categories.create') }}"><i class="fas fa-plus"></i></a></div>
+      <h5 class="m-0">Tags</h5>
+      <div class="float-right"><a href="{{ route('admin.tags.create') }}"><i class="fas fa-plus"></i></a></div>
     </div>
     <div class="card-body">
       {{-- <h6 class="card-title"></h6> --}}
@@ -29,18 +29,18 @@
             </thead>
             <tbody>
 
-                @foreach ($categories as $category)
+                @foreach ($tags as $tag)
                 <tr>
                     <td>{{ $loop->iteration }}.</td>
-                    <td>{{ $category->title }}</td>
+                    <td>{{ $tag->title }}</td>
                     <td>
                         <div class="float-left">
-                          <a href="{{ route('admin.categories.edit',$category->id) }}"><i class="fas fa-edit"></i>&nbsp;Edit</a>
+                          <a href="{{ route('admin.tags.edit',$tag->id) }}"><i class="fas fa-edit"></i>&nbsp;Edit</a>
                         </div>
 
                         <div class="float-left">
                             /
-                            <form style="display:inline-flex" method="post" action="{{ route('admin.categories.destroy',$category->id) }}">
+                            <form style="display:inline-flex" method="post" action="{{ route('admin.tags.destroy',$tag->id) }}">
                                 @csrf
                                 @method('delete')
                                 <a class="delete-btn" href="javascript:;"><i class="fas fa-trash"></i>&nbsp;Delete</a>
@@ -55,7 +55,7 @@
         </table>
 
 
-        {{ $categories->render('admin.components.pagination') }}
+        {{ $tags->render('admin.components.pagination') }}
     </p>
     {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
   </div>
