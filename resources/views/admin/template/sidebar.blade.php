@@ -79,6 +79,28 @@
             </ul>
           </li>
 
+
+          <li class="nav-item has-treeview {{ Route::is('admin.posts.index')   ? 'menu-open' : ''  }}">
+            <a href="#" class="nav-link {{ Route::is('admin.posts.index')  ? 'active' : ''  }}">
+              <i class="nav-icon fa fa-book"></i>
+              <p>
+                Posts
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.posts.index') }}" class="nav-link {{ Route::is('admin.posts.index') ? 'active' : ''  }}">
+                  <i class="far fa fa-book nav-icon"></i>
+                  <p>List Posts</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
