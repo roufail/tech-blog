@@ -81,18 +81,28 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        if($post->delete()){
+            return redirect()->route('admin.posts.index')->with(['success' => 'Post Deleted']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Post Deleting failed']);
+
     }
 
-    public function approve($id)
+    public function approve(Post $post)
     {
-        //
+        if($post->update(['approved' => 1])){
+            return redirect()->route('admin.posts.index')->with(['success' => 'Post Approved']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Post Apporving failed']);
     }
 
-    public function reject($id)
+    public function reject(Post $post)
     {
-        //
+        if($post->update(['approved' => 0])){
+            return redirect()->route('admin.posts.index')->with(['success' => 'Post Reject']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Post Rejecting failed']);
     }
 }

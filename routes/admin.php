@@ -43,8 +43,8 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
             ]
         ])->except(['show']);
 
-        Route::get('/posts/{id}/approve','PostsController@approve')->name('posts.approve');
-        Route::get('/posts/{id}/reject','PostsController@reject')->name('posts.reject');
+        Route::get('/posts/{post}/approve','PostsController@approve')->name('posts.approve');
+        Route::get('/posts/{post}/reject','PostsController@reject')->name('posts.reject');
         Route::Resource('posts', 'PostsController',[
             'names' => [
                 'index' => 'posts.index',
