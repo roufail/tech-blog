@@ -1,19 +1,27 @@
 @extends('admin.template.master')
 
-@section('page-title','tags')
+
+
+@push('extra-css')
+<link rel="stylesheet" href="{{ asset('css/bootstrap-switch.min.css') }}" media="all" />
+<link rel="stylesheet" href="{{ asset('css/summernote-bs4.css') }}" media="all" />
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}" media="all" />
+@endpush
+
+
+
+@section('page-title','Edit Post')
 @section('content')
 <!-- start of content -->
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">{{ $tag->id ? 'Edit '.$tag->title : 'Create new tag'}}</h3>
+      <h3 class="card-title">{{ 'Edit '.$post->title}}</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form role="form" method="POST" action="{{ $tag->id ? route('admin.tags.update', $tag->id) : route('admin.tags.store') }}">
+    <form role="form" method="POST" action="{{ route('admin.posts.update', $post->id)  }}">
        @csrf
-       @if($tag->id)
-        @method('put')
-       @endif
+       @method('put')
       <div class="card-body">
 
         {{-- @if($errors->any())
@@ -29,24 +37,39 @@
 
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" value="{{ old('title') ? old('title') : $tag->title }}" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="Enter title">
+          <input type="text" value="{{ old('title') ? old('title') : $post->title }}" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="Enter title">
           @error('title')
             <small class="text-danger">{{ $message }}</small>
           @enderror
         </div>
 
+
         <div class="form-group">
-            <label for="title">Slug</label>
-            <input type="text" value="{{ old('slug') ? old('slug') : $tag->slug }}" class="form-control @error('slug') is-invalid @enderror" name="slug" id="slug" placeholder="Enter slug">
-            @error('slug')
+            <label for="content">content</label>
+            <textarea type="text"  class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Enter content">{{ old('content') ? old('content') : $post->content }}</textarea>
+            @error('content')
               <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
 
 
         <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" class="select2" multiple="multiple" data-placeholder="Select a category" style="width: 100%;">
+              <option>Alabama</option>
+              <option>Alaska</option>
+              <option>California</option>
+              <option>Delaware</option>
+              <option>Tennessee</option>
+              <option>Texas</option>
+              <option>Washington</option>
+            </select>
+          </div>
+
+
+        <div class="form-group">
             <label for="description">Description</label>
-            <textarea type="text"  class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Enter description">{{ old('description') ? old('description') : $tag->description }}</textarea>
+            <textarea type="text"  class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Enter description">{{ old('description') ? old('description') : $post->description }}</textarea>
             @error('description')
               <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -56,15 +79,17 @@
 
         <div class="form-group">
             <label for="keywords">Keywords</label>
-            <textarea type="text" name="keywords"  class="form-control @error('keywords') is-invalid @enderror" id="keywords" placeholder="Enter keywords">{{ old('keywords') ? old('keywords') : $tag->keywords }}</textarea>
+            <textarea type="text" name="keywords"  class="form-control @error('keywords') is-invalid @enderror" id="keywords" placeholder="Enter keywords">{{ old('keywords') ? old('keywords') : $post->keywords }}</textarea>
             <small id="keywordsHelp" class="form-text text-muted">keyword1,keyword2,keyword3,keyword4</small>
             @error('keywords')
               <small class="text-danger">{{ $message }}</small>
             @enderror
-
         </div>
 
-
+        <div class="form-group">
+            <label for="approved">Approved</label>
+            <input id="approved" type="checkbox" name="approved" checked data-bootstrap-switch>
+        </div>
 
       </div>
       <!-- /.card-body -->
@@ -77,3 +102,38 @@
 <!-- end of content -->
 
 @endsection
+
+
+@section('extra-scripts')
+    <script>
+    jQuery(function(){
+        $("input[data-bootstrap-switch]").each(function(){
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+    $('.select2').select2();
+
+    $('#content').summernote({
+    toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']]
+    ]
+});
+
+
+
+    })
+    </script>
+@endsection
+
+
+
+@push('extra-js')
+<script src="{{ asset('js/select2.full.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-switch.min.js') }}"></script>
+<script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
+@endpush
