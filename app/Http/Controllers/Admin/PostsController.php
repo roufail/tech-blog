@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Requests\Admin\TagRequest;
 
 class PostsController extends Controller
@@ -60,7 +61,9 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.form',compact('post'));
+
+        $categories = Category::pluck('title','id');
+        return view('admin.posts.form',compact('post','categories'));
     }
 
     /**

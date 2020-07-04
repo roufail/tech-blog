@@ -19,7 +19,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form role="form" method="POST" action="{{ route('admin.posts.update', $post->id)  }}">
+    <form role="form" method="POST" action="{{ route('admin.posts.update', $post->id)  }}" enctype="multipart/form-data">
        @csrf
        @method('put')
       <div class="card-body">
@@ -45,7 +45,7 @@
 
 
         <div class="form-group">
-            <label for="content">content</label>
+            <label for="content">Content</label>
             <textarea type="text"  class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Enter content">{{ old('content') ? old('content') : $post->content }}</textarea>
             @error('content')
               <small class="text-danger">{{ $message }}</small>
@@ -54,16 +54,33 @@
 
 
         <div class="form-group">
+            <label for="exampleInputFile">Image</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input name="image" type="file" class="custom-file-input" id="exampleInputFile">
+                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="">Upload</span>
+              </div>
+            </div>
+            @error('image')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+
+
+
+        <div class="form-group">
             <label for="category">Category</label>
-            <select id="category" class="select2" multiple="multiple" data-placeholder="Select a category" style="width: 100%;">
-              <option>Alabama</option>
-              <option>Alaska</option>
-              <option>California</option>
-              <option>Delaware</option>
-              <option>Tennessee</option>
-              <option>Texas</option>
-              <option>Washington</option>
+            <select name="category" id="category" class="select2" multiple="multiple" data-placeholder="Select a category" style="width: 100%;">
+              @foreach ($categories as $id => $categroy)
+                    <option value="{{ $id }}">{{ $categroy }}</option>
+              @endforeach
             </select>
+            @error('category')
+            <small class="text-danger">{{ $message }}</small>
+           @enderror
           </div>
 
 
@@ -73,7 +90,6 @@
             @error('description')
               <small class="text-danger">{{ $message }}</small>
             @enderror
-
         </div>
 
 
@@ -113,6 +129,7 @@
     $('.select2').select2();
 
     $('#content').summernote({
+    height:100,
     toolbar: [
         // [groupName, [list of button]]
         ['style', ['bold', 'italic', 'underline', 'clear']],
