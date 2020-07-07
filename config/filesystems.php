@@ -55,6 +55,14 @@ return [
             'visibility' => 'public',
         ],
 
+
+        'posts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/posts'),
+            'url' => env('APP_URL').'/storage/posts',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

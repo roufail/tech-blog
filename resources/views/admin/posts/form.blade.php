@@ -46,7 +46,7 @@
 
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea type="text"  class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Enter content">{{ old('content') ? old('content') : $post->content }}</textarea>
+            <textarea type="text"   class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Enter content">{{ old('content') ? old('content') : $post->content }}</textarea>
             @error('content')
               <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -55,6 +55,13 @@
 
         <div class="form-group">
             <label for="exampleInputFile">Image</label>
+
+            @if($post->image)
+            <div>
+                <a target="_blank" href="{{ \Storage::disk('posts')->url($post->image) }}" ><img src="{{ \Storage::disk('posts')->url($post->image) }}" height="150px" width="150px" /></a>
+            </div>
+            @endif
+
             <div class="input-group">
               <div class="custom-file">
                 <input name="image" type="file" class="custom-file-input" id="exampleInputFile">
@@ -73,12 +80,12 @@
 
         <div class="form-group">
             <label for="category">Category</label>
-            <select name="category" id="category" class="select2" multiple="multiple" data-placeholder="Select a category" style="width: 100%;">
+            <select name="categories[]" id="category" class="select2" multiple="multiple" data-placeholder="Select a category" style="width: 100%;">
               @foreach ($categories as $id => $categroy)
-                    <option value="{{ $id }}">{{ $categroy }}</option>
+                    <option value="{{ $id }}" @if(in_array($id,$selected)) selected @endif>{{ $categroy }}</option>
               @endforeach
             </select>
-            @error('category')
+            @error('categories')
             <small class="text-danger">{{ $message }}</small>
            @enderror
           </div>

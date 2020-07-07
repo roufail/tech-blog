@@ -12,4 +12,9 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function setImageAttribute($value) {
+        $image = request()->image->store('/','posts');
+        $this->attributes['image'] = $image;
+    }
 }
