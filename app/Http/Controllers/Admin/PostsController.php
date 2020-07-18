@@ -77,6 +77,7 @@ class PostsController extends Controller
     public function update(PostRequest $request,Post $post)
     {
         $request->merge(['approved' => $request->approved ? 1 : 0]);
+        $post = Post::findOrFail($post->id);
         $post->update($request->all());
         $post->categories()->sync($request->categories);
         return redirect()->route('admin.posts.index')->with(['success' => 'Post Updated']);
@@ -94,7 +95,6 @@ class PostsController extends Controller
             return redirect()->route('admin.posts.index')->with(['success' => 'Post Deleted']);
         }
         return redirect()->back()->withErrors(['error' => 'Post Deleting failed']);
-
     }
 
     public function approve(Post $post)

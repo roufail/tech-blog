@@ -1,11 +1,12 @@
 @extends('admin.template.master')
 
-@section('page-title','Posts')
+@section('page-title','Users')
 @section('content')
  <!-- start of content -->
  <div class="card">
     <div class="card-header">
-      <h5 class="m-0">Posts</h5>
+      <h5 class="m-0">Users</h5>
+      <div class="float-right"><a href="{{ route('admin.users.create') }}"><i class="fas fa-plus"></i></a></div>
     </div>
     <div class="card-body">
       {{-- <h6 class="card-title"></h6> --}}
@@ -22,34 +23,28 @@
             <thead>
             <tr>
                 <th style="width: 10px">#</th>
-                <th>Title</th>
-                <th>Categories</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Approved</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
-                @foreach ($posts as $post)
+                @foreach ($users as $user)
                 <tr>
                     <td>{{ $loop->iteration }}.</td>
-                    <td>{{ $post->title }}</td>
-                    <td>
-                        @foreach($post->categories as $category)
-                            - {{ $category->title }}<br />
-                        @endforeach
-                    </td>
-                    <td>
-                        {{ $post->approved}}
-                    </td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->approved }}</td>
                     <td>
                         <div class="float-left">
-                          <a href="{{ route('admin.posts.edit',$post->id) }}"><i class="fas fa-edit"></i>&nbsp;Edit</a>
+                          <a href="{{ route('admin.users.edit',$user->id) }}"><i class="fas fa-edit"></i>&nbsp;Edit</a>
                         </div>
 
                         <div class="float-left">
                             /
-                            <form style="display:inline-flex" method="post" action="{{ route('admin.posts.destroy',$post->id) }}">
+                            <form style="display:inline-flex" method="post" action="{{ route('admin.users.destroy',$user->id) }}">
                                 @csrf
                                 @method('delete')
                                 <a class="delete-btn" href="javascript:;"><i class="fas fa-trash"></i>&nbsp;Delete</a>
@@ -58,8 +53,9 @@
 
                         <div class="float-left">
                             /
-                            <a href="{{ $post->approved == 'Approved' ? route('admin.posts.reject',$post->id) : route('admin.posts.approve',$post->id) }}"><i class="fas fa-edit"></i>&nbsp;{{ $post->approved == 'Approved' ? 'Reject' : 'Approve' }}</a>
+                            <a href="{{ $user->approved == "Approved" ? route('admin.users.reject',$user->id) :  route('admin.users.approve',$user->id)}}"><i class="fas fa-edit"></i>&nbsp;{{ $user->approved == "Approved" ? 'Reject' : 'Approved' }}</a>
                         </div>
+
 
                     </td>
                 </tr>
@@ -69,7 +65,7 @@
         </table>
 
 
-        {{ $posts->render('admin.components.pagination') }}
+        {{ $users->render('admin.components.pagination') }}
     </p>
     {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
   </div>

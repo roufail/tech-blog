@@ -17,4 +17,8 @@ class Post extends Model
         $image = request()->image->store('/','posts');
         $this->attributes['image'] = $image;
     }
+
+    public function getApprovedAttribute($value){
+        return $value ? 'Approved' : 'Rejected';
+    }
 }

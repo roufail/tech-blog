@@ -53,6 +53,23 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
                 'destroy' => 'posts.destroy',
             ]
         ])->except(['show','create','store']);
+
+
+        Route::get('/users/{user}/approve','UsersController@approve')->name('users.approve');
+        Route::get('/users/{user}/reject','UsersController@reject')->name('users.reject');
+
+        Route::Resource('users', 'usersController',[
+            'names' => [
+                'index' => 'users.index',
+                'create' => 'users.create',
+                'store' => 'users.store',
+                'edit' => 'users.edit',
+                'update' => 'users.update',
+                'destroy' => 'users.destroy',
+            ]
+        ])->except(['show']);
+
+
     // });
 
 });

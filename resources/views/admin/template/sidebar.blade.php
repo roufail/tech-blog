@@ -101,6 +101,33 @@
 
 
 
+
+          <li class="nav-item has-treeview {{ Route::is('admin.users.index') ||  Route::is('admin.users.create')  ? 'menu-open' : ''  }}">
+            <a href="#" class="nav-link {{ Route::is('admin.users.index') ||  Route::is('admin.users.create')  ? 'active' : ''  }}">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.users.index') }}" class="nav-link {{ Route::is('admin.users.index') ? 'active' : ''  }}">
+                  <i class="far fa fa-users nav-icon"></i>
+                  <p>List users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.users.create') }}" class="nav-link {{ Route::is('admin.users.create') ? 'active' : ''  }}">
+                  <i class="fas fa-plus nav-icon"></i>
+                  <p>Create User</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
