@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\Admin\UserRequest;
 class UsersController extends Controller
 {
     /**
@@ -25,7 +26,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $user = new user;
+        return view('admin.users.form',compact('user'));
     }
 
     /**
@@ -34,9 +36,15 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+
+       $request->merge(['approved' => $request->approved ? 1 : 0]);
+       $user = User::create($request->all());
+       if($user){
+        return redirect()->route('admin.users.index')->with(['success' => 'User Created']);
+       }
+       return redirect()->route('admin.users.index')->withErrors(['errors' => 'User creation failed']);
     }
 
     /**
