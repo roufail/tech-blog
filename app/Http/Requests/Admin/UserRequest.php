@@ -30,6 +30,12 @@ class UserRequest extends FormRequest
             'confirm_password' => 'required|same:password'
         ];
 
+        if($this->user){
+            $rules['email'] =  'required|email|unique:users,email,'.$this->user->id;
+            $rules['password'] =  'nullable|min:6';
+            $rules['confirm_password'] =  'required_with:password|same:password';
+        }
+
         return $rules;
 
     }

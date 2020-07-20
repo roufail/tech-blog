@@ -64,9 +64,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.form',compact('user'));
     }
 
     /**
@@ -76,9 +76,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $request->merge(['approved' => $request->approved ? 1 : 0]);
+
+        if(!$request->password){
+            $user = $user->update($request->except('password'));
+        }else {
+            $user = $user->update($request->all());
+        }
+
+        if($user){
+         return redirect()->route('admin.users.index')->with(['success' => 'User updated']);
+        }
+        return redirect()->route('admin.users.index')->withErrors(['errors' => 'User updating failed']);
+
     }
 
     /**

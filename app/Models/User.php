@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function getApprovedAttribute($value){
         return $value ? 'Approved' : 'Rejected';
     }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
 }
