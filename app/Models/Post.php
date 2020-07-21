@@ -21,4 +21,10 @@ class Post extends Model
     public function getApprovedAttribute($value){
         return $value ? 'Approved' : 'Rejected';
     }
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

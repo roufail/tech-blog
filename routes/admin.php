@@ -58,7 +58,7 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
         Route::get('/users/{user}/approve','UsersController@approve')->name('users.approve');
         Route::get('/users/{user}/reject','UsersController@reject')->name('users.reject');
 
-        Route::Resource('users', 'usersController',[
+        Route::Resource('users', 'UsersController',[
             'names' => [
                 'index' => 'users.index',
                 'create' => 'users.create',
@@ -69,6 +69,14 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
             ]
         ])->except(['show']);
 
+
+        Route::Resource('comments', 'CommentsController',[
+            'names' => [
+                'index' => 'comments.index',
+                'show' => 'comments.show',
+                'destroy' => 'comments.destroy',
+            ]
+        ])->except(['create','store','edit','update']);
 
     // });
 
