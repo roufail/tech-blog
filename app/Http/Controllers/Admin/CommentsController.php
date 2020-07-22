@@ -14,9 +14,8 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::with('post')->paginate(10);
-
-        return view('admin.comments.test');
+        $comments = Comment::with(['post:id,title','user:id,name,email'])->paginate(10,['id','name','email','approved','user_id','post_id']);
+        return view('admin.comments.list',compact('comments'));
     }
 
     /**
@@ -80,8 +79,12 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        if($comment->delete()){
+            return redirect()->route('admin.comments.index')->with(['success' => 'Comment Deleted']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Comment Deleting failed']);
+
     }
 }

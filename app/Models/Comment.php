@@ -17,4 +17,18 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    public function getApprovedAttribute($value){
+       return  $value ? 'Approved' : 'Rejected';
+    }
+
+
+    public function getNameAttribute($value){
+        return  $this->user_id ? $this->user->name : $value;
+    }
+
+    public function getEmailAttribute($value){
+        return  $this->user_id ? $this->user->email : $value;
+    }
+
 }
