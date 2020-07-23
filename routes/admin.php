@@ -79,6 +79,21 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
             ]
         ])->except(['create','store','edit','update']);
 
+
+
+
+        Route::Resource('pages', 'PagesController',[
+            'names' => [
+                'index' => 'pages.index',
+                'create' => 'pages.create',
+                'store' => 'pages.store',
+                'edit' => 'pages.edit',
+                'update' => 'pages.update',
+                'destroy' => 'pages.destroy',
+            ]
+        ])->except(['show']);
+
+
     // });
 
 });

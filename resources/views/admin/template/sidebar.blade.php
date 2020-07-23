@@ -164,6 +164,36 @@
 
 
 
+                <li
+                    class="nav-item has-treeview {{ Route::is('admin.pages.index') ||  Route::is('admin.pages.create')  ? 'menu-open' : ''  }}">
+                    <a href="#"
+                        class="nav-link {{ Route::is('admin.pages.index') ||  Route::is('admin.pages.create')  ? 'active' : ''  }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>
+                            Pages
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.pages.index') }}"
+                                class="nav-link {{ Route::is('admin.pages.index') ? 'active' : ''  }}">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>List pages</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.pages.create') }}"
+                                class="nav-link {{ Route::is('admin.pages.create') ? 'active' : ''  }}">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>Create page</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

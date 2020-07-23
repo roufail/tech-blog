@@ -65,7 +65,7 @@ class CommentsController extends Controller
     public function reject(Comment $comment)
     {
         if($comment->update(['approved' => 0])){
-            return redirect()->back()->with(['success' => 'Comment reject']);
+            return redirect()->back()->with(['success' => 'Comment rejected']);
         }
         return redirect()->back()->withErrors(['error' => 'Comment rejecting failed']);
     }
