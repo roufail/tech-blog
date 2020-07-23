@@ -26,6 +26,7 @@
                         <th>Email</th>
                         <th>Approved</th>
                         <th>Post</th>
+                        <th>View</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -38,6 +39,8 @@
                         <td>{{ $comment->email }}</td>
                         <td>{{ $comment->approved }}</td>
                         <td>{{ $comment->post ? $comment->post->title : ''}}</td>
+                        <td><a class="load-comment" href="javascript:;" data-id="{{ $comment->id }}" data-toggle="modal"
+                                data-target="#CommentModal"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                         <td>
                             <div class="float-left">
                                 <form style="display:inline-flex" method="post"
@@ -64,6 +67,32 @@
 </div>
 <!-- end of content -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="CommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body comment-area">
+                Loading
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary reject-url">Reject</a>
+                <a href="#" class="btn btn-primary approve-url">Approve</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 @endsection
 
 
@@ -89,9 +118,23 @@
                     $(this).parent().submit();
                 }
                 })
+        });
 
 
-
+        $('.load-comment').click(function($event){
+            $id = $(this).data('id');
+            $('#CommentModal .comment-area').text('Loading');
+            $.ajax({
+                url: '/admin/comments/'+$id,
+                type: 'GET',
+                data: { '_token': '{{ csrf_token() }}'},
+                dataType: 'json',
+                success: function( data ) {
+                    $('#CommentModal .comment-area').text(data.comment);
+                    $('#CommentModal .reject-url').attr('href',data.reject_url);
+                    $('#CommentModal .approve-url').attr('href',data.approve_url);
+                }
+            })
         });
       })
 

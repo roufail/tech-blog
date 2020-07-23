@@ -69,7 +69,8 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
             ]
         ])->except(['show']);
 
-
+        Route::get('/comments/{comment}/approve','CommentsController@approve')->name('comments.approve');
+        Route::get('/comments/{comment}/reject','CommentsController@reject')->name('comments.reject');
         Route::Resource('comments', 'CommentsController',[
             'names' => [
                 'index' => 'comments.index',
