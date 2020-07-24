@@ -48,16 +48,6 @@ class PagesController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -67,7 +57,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        return  view('admin.categories.form',compact('page'));
     }
 
     /**
@@ -79,7 +69,16 @@ class PagesController extends Controller
      */
     public function update(PageRequest $request, Page $page)
     {
-        //
+        $request->merge(['slug' => str_replace(' ','-',strtolower($request->slug)) ]);
+        $page = $page->update($request->all());
+
+
+        if($page){
+            return redirect()->route('admin.pages.index')->with(['success' => 'Page updated']);
+        }
+        return redirect()->back()->withErrors(['error' => 'Page updating failed']);
+
+
     }
 
     /**
@@ -88,8 +87,13 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Page $page)
     {
-        //
+        if($page->delete()){
+            return redirect()->route('admin.pages.index')->with(['success' => 'Page deleted']);
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Page deleting failed']);
+
     }
 }
