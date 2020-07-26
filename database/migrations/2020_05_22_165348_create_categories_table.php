@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('keywords');
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

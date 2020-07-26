@@ -20,6 +20,7 @@ class CreateContactUsTable extends Migration
             $table->text('message');
             $table->boolean('read');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

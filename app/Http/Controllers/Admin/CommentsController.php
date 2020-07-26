@@ -50,7 +50,6 @@ class CommentsController extends Controller
             return redirect()->route('admin.comments.index')->with(['success' => 'Comment Deleted']);
         }
         return redirect()->back()->withErrors(['error' => 'Comment Deleting failed']);
-
     }
 
 

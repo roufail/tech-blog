@@ -1,11 +1,11 @@
 @extends('admin.template.master')
 
-@section('page-title','Comments')
+@section('page-title','Contact us')
 @section('content')
 <!-- start of content -->
 <div class="card">
     <div class="card-header">
-        <h5 class="m-0">Comments</h5>
+        <h5 class="m-0">Contact us</h5>
     </div>
     <div class="card-body">
         {{-- <h6 class="card-title"></h6> --}}
@@ -24,27 +24,26 @@
                         <th style="width: 10px">#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Approved</th>
-                        <th>Post</th>
+                        <th>Read</th>
                         <th>View</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach ($comments as $comment)
+                    @foreach ($contactus_messages as $contactus_message)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
-                        <td>{{ $comment->name }}</td>
-                        <td>{{ $comment->email }}</td>
-                        <td>{{ $comment->approved }}</td>
-                        <td>{{ $comment->post ? $comment->post->title : ''}}</td>
-                        <td><a class="load-comment" href="javascript:;" data-id="{{ $comment->id }}" data-toggle="modal"
-                                data-target="#CommentModal"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                        <td>{{ $contactus_message->name }}</td>
+                        <td>{{ $contactus_message->email }}</td>
+                        <td>{{ $contactus_message->read }}</td>
+                        <td><a class="load-message" href="javascript:;" data-id="{{ $contactus_message->id }}"
+                                data-toggle="modal" data-target="#MessageModal"><i class="fas fa-eye"></i>&nbsp;View</a>
+                        </td>
                         <td>
                             <div class="float-left">
                                 <form style="display:inline-flex" method="post"
-                                    action="{{ route('admin.comments.destroy',$comment->id) }}">
+                                    action="{{ route('admin.contactus.destroy',$contactus_message->id) }}">
                                     @csrf
                                     @method('delete')
                                     <a class="delete-btn" href="javascript:;"><i
@@ -60,7 +59,7 @@
             </table>
 
 
-            {{ $comments->render('admin.components.pagination') }}
+            {{ $contactus_messages->render('admin.components.pagination') }}
         </p>
         {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
     </div>
@@ -69,22 +68,28 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="CommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body comment-area">
+            <div class="modal-body message-area">
                 Loading
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary reject-url">Reject</a>
-                <a href="#" class="btn btn-primary approve-url">Approve</a>
+                <a href="#" class="btn btn-secondary toggle-url"></a>
+
+                <form class="delete-url" action="#">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-primary">Delete</a>
+
+                </form>
             </div>
         </div>
     </div>
@@ -121,18 +126,24 @@
         });
 
 
-        $('.load-comment').click(function($event){
+        $('.load-message').click(function($event){
             $id = $(this).data('id');
-            $('#CommentModal .comment-area').text('Loading');
+            $('#MessageModal .message-area').text('Loading');
             $.ajax({
-                url: '/admin/comments/'+$id,
+                url: '/admin/contactus/'+$id,
                 type: 'GET',
                 data: { '_token': '{{ csrf_token() }}'},
                 dataType: 'json',
                 success: function( data ) {
-                    $('#CommentModal .comment-area').text(data.comment);
-                    $('#CommentModal .reject-url').attr('href',data.reject_url);
-                    $('#CommentModal .approve-url').attr('href',data.approve_url);
+                    $('#MessageModal .message-area').text(data.message);
+                    $('#MessageModal .toggle-url').attr('href',data.toggle_read);
+                    $('#MessageModal .delete-url').attr('action',data.delete_url);
+
+                    if(data.message_status === 'Read') {
+                        $('#MessageModal .toggle-url').text('Unread');
+                    }else {
+                        $('#MessageModal .toggle-url').text('Read');
+                    }
                 }
             })
         });

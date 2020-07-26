@@ -194,6 +194,44 @@
 
 
 
+
+
+                <li
+                    class="nav-item has-treeview {{ Route::is('admin.contactus.index') ||  Route::is('admin.contactus.create')  ? 'menu-open' : ''  }}">
+                    <a href="#"
+                        class="nav-link {{ Route::is('admin.contactus.index') ||  Route::is('admin.contactus.create')  ? 'active' : ''  }}">
+                        <i class="nav-icon fa fa-envelope"></i>
+                        <p>
+                            Contact Us
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.contactus.index') }}"
+                                class="nav-link {{ Route::is('admin.contactus.index') ? 'active' : ''  }}">
+                                <i class="fa fa-envelope nav-icon"></i>
+                                <p>List contactus</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                {{-- <li class="nav-item">
+                    <a href="{{ route('admin.contactus.index') }}"
+                class="nav-link {{ Route::is('admin.contactus.index') ? 'active' : ''  }}"">
+                <i class=" nav-icon fas fa-th"></i>
+                <p>
+                    Contact Us
+                </p>
+                </a>
+                </li>
+                --}}
+
+
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
