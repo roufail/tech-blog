@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Http\Requests\Admin\AdminRequest;
+
 class AdminsController extends Controller
 {
     /**
@@ -25,7 +27,9 @@ class AdminsController extends Controller
      */
     public function create()
     {
-        //
+        $admin = new Admin;
+        return view('admin.admins.form',compact('admin'));
+
     }
 
     /**
@@ -34,21 +38,17 @@ class AdminsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        //
-    }
+        $request->merge(['approved' => $request->approved ? 1 : 0]);
+        $admin = Admin::create($request->all());
+        if($admin){
+         return redirect()->route('admin.admins.index')->with(['success' => 'Admin Created']);
+        }
+        return redirect()->route('admin.admins.index')->withErrors(['errors' => 'Admin creation failed']);
+     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -56,9 +56,9 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Admin $admin)
     {
-        //
+        return view('admin.admins.form',compact('admin'));
     }
 
     /**
@@ -68,9 +68,20 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminRequest $request, Admin $admin)
     {
-        //
+        $request->merge(['approved' => $request->approved ? 1 : 0]);
+
+        if(!$request->password){
+            $admin = $admin->update($request->except('password'));
+        }else {
+            $admin = $admin->update($request->all());
+        }
+
+        if($admin){
+         return redirect()->route('admin.admins.index')->with(['success' => 'Admin updated']);
+        }
+        return redirect()->route('admin.admins.index')->withErrors(['errors' => 'Admin updating failed']);
     }
 
     /**

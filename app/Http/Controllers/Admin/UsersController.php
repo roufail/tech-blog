@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $user = new user;
+        $user = new User;
         return view('admin.users.form',compact('user'));
     }
 
@@ -45,17 +45,6 @@ class UsersController extends Controller
         return redirect()->route('admin.users.index')->with(['success' => 'User Created']);
        }
        return redirect()->route('admin.users.index')->withErrors(['errors' => 'User creation failed']);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

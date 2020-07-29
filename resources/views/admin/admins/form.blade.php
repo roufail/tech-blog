@@ -7,19 +7,19 @@
 
 
 
-@section('page-title','users')
+@section('page-title','Admin')
 @section('content')
 <!-- start of content -->
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">{{ $user->id ? 'Edit '.$user->title : 'Create new user'}}</h3>
+        <h3 class="card-title">{{ $admin->id ? 'Edit '.$admin->title : 'Create new admin'}}</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
     <form role="form" method="POST"
-        action="{{ $user->id ? route('admin.users.update', $user->id) : route('admin.users.store') }}">
+        action="{{ $admin->id ? route('admin.admins.update', $admin->id) : route('admin.admins.store') }}">
         @csrf
-        @if($user->id)
+        @if($admin->id)
         @method('put')
         @endif
         <div class="card-body">
@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" value="{{ old('name') ? old('name') : $user->name }}"
+                <input type="text" value="{{ old('name') ? old('name') : $admin->name }}"
                     class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                     placeholder="Enter name">
                 @error('name')
@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" value="{{ old('email') ? old('email') : $user->email }}"
+                <input type="email" value="{{ old('email') ? old('email') : $admin->email }}"
                     class="form-control @error('email') is-invalid @enderror" name="email" id="email"
                     placeholder="Enter email">
                 @error('email')
@@ -68,7 +68,8 @@
 
             <div class="form-group">
                 <label for="approved">Approved</label>
-                <input id="approved" type="checkbox" name="approved" checked data-bootstrap-switch>
+                <input id="approved" type="checkbox" name="approved" @if($admin->approved == "Approved")checked @endif
+                data-bootstrap-switch>
             </div>
 
 

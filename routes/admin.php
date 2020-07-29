@@ -16,7 +16,7 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
     Route::get('reset/password/{token}','Auth\ResetPasswordController@showResetForm')->name('reset.password');
     Route::post('reset/password','Auth\ResetPasswordController@reset')->name('password.update');
 
-     //Route::group(['middleware' => 'auth:admin'],function(){
+     Route::group(['middleware' => 'auth:admin'],function(){
         Route::get('home', 'DashboardController@index')->name('home');
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
         Route::Resource('categories', 'CategoriesController')->except(['show']);
@@ -45,7 +45,7 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
         Route::Resource('admins', 'AdminsController')->except(['show']);
 
 
-     //});
+     });
 
 });
 

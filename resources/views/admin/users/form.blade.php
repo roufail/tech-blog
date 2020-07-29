@@ -68,7 +68,8 @@
 
             <div class="form-group">
                 <label for="approved">Approved</label>
-                <input id="approved" type="checkbox" name="approved" checked data-bootstrap-switch>
+                <input id="approved" type="checkbox" name="approved" @if($user->approved == "Approved") checked @endif
+                data-bootstrap-switch>
             </div>
 
 
