@@ -231,6 +231,36 @@
                 --}}
 
 
+                <li
+                    class="nav-item has-treeview {{ Route::is('admin.admins.index') ||  Route::is('admin.admins.create')  ? 'menu-open' : ''  }}">
+                    <a href="#"
+                        class="nav-link {{ Route::is('admin.admins.index') ||  Route::is('admin.admins.create')  ? 'active' : ''  }}">
+                        <i class="fas fa-users-cog"></i>
+                        <p>
+                            Admins
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.admins.index') }}"
+                                class="nav-link {{ Route::is('admin.admins.index') ? 'active' : ''  }}">
+                                <i class="fas fa-users-cog nav-icon"></i>
+                                <p>List admin</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.admins.create') }}"
+                                class="nav-link {{ Route::is('admin.admins.create') ? 'active' : ''  }}">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>Create admin</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
