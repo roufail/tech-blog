@@ -168,17 +168,22 @@
                     class="nav-item has-treeview {{ Route::is('admin.pages.index') ||  Route::is('admin.pages.create')  ? 'menu-open' : ''  }}">
                     <a href="#"
                         class="nav-link {{ Route::is('admin.pages.index') ||  Route::is('admin.pages.create')  ? 'active' : ''  }}">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-file-alt nav-icon"></i>
                         <p>
                             Pages
                             <i class="right fas fa-angle-left"></i>
                         </p>
+
+
+
+
+
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.pages.index') }}"
                                 class="nav-link {{ Route::is('admin.pages.index') ? 'active' : ''  }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
+                                <i class="fa fa-file-alt nav-icon"></i>
                                 <p>List pages</p>
                             </a>
                         </li>
