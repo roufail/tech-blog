@@ -11,11 +11,14 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            @if(auth('admin')->user()->image)
             <div class="image">
-                <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ Storage::disk('admins')->url(auth('admin')->user()->image) }}"
+                    class="img-circle elevation-2" alt="User Image">
             </div>
+            @endif
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{ auth('admin')->user()->name }}</a>
             </div>
         </div>
 
@@ -240,7 +243,7 @@
                     class="nav-item has-treeview {{ Route::is('admin.admins.index') ||  Route::is('admin.admins.create')  ? 'menu-open' : ''  }}">
                     <a href="#"
                         class="nav-link {{ Route::is('admin.admins.index') ||  Route::is('admin.admins.create')  ? 'active' : ''  }}">
-                        <i class="fas fa-users-cog"></i>
+                        <i class="fas fa-users-cog nav-icon"></i>
                         <p>
                             Admins
                             <i class="right fas fa-angle-left"></i>
@@ -268,11 +271,10 @@
 
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ route('admin.logout') }}" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
+                            Logout
                         </p>
                     </a>
                 </li>

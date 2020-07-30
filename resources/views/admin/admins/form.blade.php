@@ -17,7 +17,8 @@
     <!-- /.card-header -->
     <!-- form start -->
     <form role="form" method="POST"
-        action="{{ $admin->id ? route('admin.admins.update', $admin->id) : route('admin.admins.store') }}">
+        action="{{ $admin->id ? route('admin.admins.update', $admin->id) : route('admin.admins.store') }}"
+        enctype="multipart/form-data">
         @csrf
         @if($admin->id)
         @method('put')
@@ -44,6 +45,32 @@
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputFile">Image</label>
+
+                @if($admin->image)
+                <div>
+                    <a target="_blank" href="{{ \Storage::disk('admins')->url($admin->image) }}"><img
+                            src="{{ \Storage::disk('admins')->url($admin->image) }}" height="150px" width="150px" /></a>
+                </div>
+                @endif
+
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input name="image" type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                    </div>
+                </div>
+                @error('image')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
 
 
             <div class="form-group">

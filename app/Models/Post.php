@@ -14,6 +14,11 @@ class Post extends Model
     }
 
     public function setImageAttribute($value) {
+
+        if($this->image) {
+            Storage::disk('posts')->delete($this->image);
+        }
+
         $image = request()->image->store('/','posts');
         $this->attributes['image'] = $image;
     }

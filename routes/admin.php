@@ -43,8 +43,6 @@ Route::group(['namespace' => 'Admin','prefix' =>'admin','as'=>'admin.'],function
         Route::get('/admins/{admin}/approve','adminsController@approve')->name('admins.approve');
         Route::get('/admins/{admin}/reject','adminsController@reject')->name('admins.reject');
         Route::Resource('admins', 'AdminsController')->except(['show']);
-
-
      });
 
 });

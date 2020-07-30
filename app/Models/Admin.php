@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\AdminResetPasswordNotification;
+use Illuminate\Support\Facades\Storage;
+
 class Admin extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'password','approved'];
+    protected $fillable = ['name', 'email', 'password','approved','image'];
 
 
     /**
@@ -38,6 +40,14 @@ class Admin extends Authenticatable
 
     public function setPasswordAttribute($value){
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function setImageAttribute($value) {
+        if($this->image) {
+           Storage::disk('admins')->delete($this->image);
+        }
+        $image = request()->image->store('/','admins');
+        $this->attributes['image'] = $image;
     }
 
 

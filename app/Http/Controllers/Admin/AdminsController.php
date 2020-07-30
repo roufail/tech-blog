@@ -77,7 +77,6 @@ class AdminsController extends Controller
         }else {
             $admin = $admin->update($request->all());
         }
-
         if($admin){
          return redirect()->route('admin.admins.index')->with(['success' => 'Admin updated']);
         }
