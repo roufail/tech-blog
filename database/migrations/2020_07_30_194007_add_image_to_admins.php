@@ -14,7 +14,7 @@ class AddImageToAdmins extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->string('image')->after('email');
+            $table->string('image')->after('email')->nullable();
         });
     }
 
