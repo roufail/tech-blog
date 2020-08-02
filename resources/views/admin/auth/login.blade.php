@@ -12,6 +12,12 @@
             <form action="{{ route('admin.login') }}" method="post">
                 @csrf
 
+                @if(Session::has('not_approved_message'))
+                <div class="alert alert-danger alert-dismissible">
+                    {{  Session::get('not_approved_message') }}
+                </div>
+                @endif
+
                 <div class="input-group mb-3">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                         name="email" placeholder="Email" value="{{ old('email') }}" required autocomplete="email"
