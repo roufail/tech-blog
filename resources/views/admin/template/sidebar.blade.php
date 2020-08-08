@@ -269,6 +269,17 @@
 
 
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.index') }}"
+                        class="nav-link {{ Route::is('admin.settings.index') ||  Route::is('admin.settings.create')  ? 'active' : ''  }}">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            Settings
+                        </p>
+                    </a>
+                </li>
+
+
 
                 <li class="nav-item">
                     <a href="{{ route('admin.logout') }}" class="nav-link">
