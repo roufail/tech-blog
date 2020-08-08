@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use Storage,Image;
 class Post extends Model
 {
     protected $fillable = ['title','content','image','user_id','keywords','description','approved'];
@@ -16,10 +17,24 @@ class Post extends Model
     public function setImageAttribute($value) {
 
         if($this->image) {
-            Storage::disk('posts')->delete($this->image);
+            $delete_ar = explode(".",$this->image);
+            $allPostsImages = Storage::disk('posts')->files('');
+            $matchingImages = preg_grep('/^'.$delete_ar[0].'*/',$allPostsImages);
+            Storage::disk('posts')->delete($matchingImages);
+        }
+        $image = request()->image->store('/','posts');
+
+        // resize image
+        $temp_image = Storage::disk('posts')->get($image);
+        $image_name_ar = explode('.', $image);
+
+        foreach(images_sizes() as $image_size){
+            $resize_image = Image::make($temp_image)->resize($image_size['width'],$image_size['height'])->stream();
+            $resize_name = $image_name_ar[0]."-".$image_size['width']."X".$image_size['height'].".".$image_name_ar[1];
+            Storage::disk('posts')->put($resize_name,$resize_image);
         }
 
-        $image = request()->image->store('/','posts');
+
         $this->attributes['image'] = $image;
     }
 
