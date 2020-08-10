@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Settings;
+use App\Http\Requests\Admin\SettingsRequest;
 class SettingsController extends Controller
 {
     /**
@@ -25,14 +26,15 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(SettingsRequest $request)
     {
 
-        $notIn = array_keys($request->except('_token','_method'));
+
+        $notIn = array_keys($request->validated());
         Settings::whereNotIn('key',$notIn)->delete();
 
 
-        foreach($request->except('_token','_method') as $key => $value){
+        foreach($request->validated() as $key => $value){
             Settings::updateOrCreate(['key' => $key],['value' => $value]);
         }
 
