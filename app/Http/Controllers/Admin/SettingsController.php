@@ -29,7 +29,7 @@ class SettingsController extends Controller
     public function update(SettingsRequest $request)
     {
 
-
+        // read youtube description please
         $notIn = array_keys($request->validated());
         Settings::whereNotIn('key',$notIn)->delete();
 
