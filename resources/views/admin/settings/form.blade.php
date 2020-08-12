@@ -19,7 +19,7 @@
             <label for="facebook_url">Facebook</label>
 
             <input type="text"
-                value="{{ old('facebook_url') ? old('facebook_url') : isset($db_settings['facebook_url']) ? $db_settings['facebook_url'] : '' }}"
+                value="{{ (old('facebook_url') ? old('facebook_url') : isset($db_settings['facebook_url'])) ? $db_settings['facebook_url'] : '' }}"
                 class="form-control @error('facebook_url') is-invalid @enderror" name="facebook_url" id="facebook_url"
                 placeholder="Enter facebook URL">
 
@@ -33,7 +33,7 @@
             <label for="twitter_url">Twitter</label>
 
             <input type="text"
-                value="{{ old('twitter_url') ? old('twitter_url') : isset($db_settings['twitter_url']) ? $db_settings['twitter_url'] : '' }}"
+                value="{{ (old('twitter_url') ? old('twitter_url') : isset($db_settings['twitter_url'])) ? $db_settings['twitter_url'] : '' }}"
                 class="form-control @error('twitter_url') is-invalid @enderror" name="twitter_url" id="twitter_url"
                 placeholder="Enter twitter URL">
 
