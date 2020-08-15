@@ -1,0 +1,1 @@
+@extends('frontend.template.master')
