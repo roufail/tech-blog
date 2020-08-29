@@ -1,4 +1,5 @@
 @extends('frontend.template.master')
+@include('frontend.template.components.latest_posts')
 
 @section('template')
 <section class="section">

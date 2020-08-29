@@ -10,4 +10,9 @@ class FrontendController extends Controller
     public function home_page(){
         return view("frontend.homepage");
     }
+
+    public function category_page(){
+        return view("frontend.categorypage");
+    }
+
 }
