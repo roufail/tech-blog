@@ -40,7 +40,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/helpers/images.php"
+            "app/helpers/images.php",
+            "app/helpers/general.php"
         ],
         "classmap": [
             "database/seeds",

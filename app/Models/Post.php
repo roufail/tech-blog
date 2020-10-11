@@ -14,8 +14,13 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function setImageAttribute($value) {
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setImageAttribute($value) {
         if($this->image) {
             $delete_ar = explode(".",$this->image);
             $allPostsImages = Storage::disk('posts')->files('');
@@ -33,14 +38,27 @@ class Post extends Model
             $resize_name = $image_name_ar[0]."-".$image_size['width']."X".$image_size['height'].".".$image_name_ar[1];
             Storage::disk('posts')->put($resize_name,$resize_image);
         }
-
-
         $this->attributes['image'] = $image;
     }
+
+
+    public function getHomePostImageAttribute() {
+       return fetch_image_by_size($this->image,'250X210');
+    }
+    public function getHomePostImage950X530Attribute() {
+       return fetch_image_by_size($this->image,'950X530');
+    }
+    public function getHomePostImage460X530Attribute() {
+       return fetch_image_by_size($this->image,'460X530');
+    }
+
+
+
 
     public function getApprovedAttribute($value){
         return $value ? 'Approved' : 'Rejected';
     }
+
 
 
     public function comments()

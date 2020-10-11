@@ -1,59 +1,48 @@
+@if($latest_posts->count() == 3)
 <section class="section first-section">
     <div class="container-fluid">
         <div class="masonry-blog clearfix">
-            <div class="first-slot">
+
+            @foreach ($latest_posts as $post)
+            @php
+            $image_size = "home_post_image950X530";
+            $class= "first-slot";
+            if($loop->iteration == 2) {
+            $class= "second-slot";
+            $image_size = "home_post_image460X530";
+            } elseif($loop->iteration == 3) {
+            $class= "last-slot";
+            $image_size = "home_post_image460X530";
+            }
+            @endphp
+            <div class="{{ $class }}">
                 <div class="masonry-box post-media">
-                    <img src="{{ asset('frontend/upload/tech_01.jpg') }}" alt="" class="img-fluid">
+                    <img src="{{ $post->$image_size }}" alt="" class="img-fluid">
                     <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html"
-                                        title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">Say hello to real handmade office
-                                        furniture! Clean & beautiful design</a></h4>
-                                <small><a href="tech-single.html" title="">24 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Amanda</a></small>
-                            </div><!-- end meta -->
+
+
+                                @foreach ($post->categories as $category)
+                                <a class="bg-orange" href="{{ route('frontend.category',$category->id) }}"
+                                    title="">{{ $category->title}}</a>
+                                @endforeach
+
+
+                                <h4><a href="{{ route('frontend.post',$post->id) }}" title="">{{ $post->title }}</a>
+                                </h4>
+                                <small><a href="{{ route('frontend.post',$post->id) }}"
+                                        title="">{{ $post->created_at->format('d M,Y') }}</a></small>
+                                <small><a href="{{ route('frontend.author',$post->user->id) }}" title="">by
+                                        {{ $post->user->name }}</a></small> </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
                     </div><!-- end shadow -->
                 </div><!-- end post-media -->
             </div><!-- end first-side -->
+            @endforeach
 
-            <div class="second-slot">
-                <div class="masonry-box post-media">
-                    <img src="{{ asset('frontend/upload/tech_02.jpg') }}" alt="" class="img-fluid">
-                    <div class="shadoweffect">
-                        <div class="shadow-desc">
-                            <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html"
-                                        title="">Gadgets</a></span>
-                                <h4><a href="tech-single.html" title="">Do not make mistakes when choosing web
-                                        hosting</a></h4>
-                                <small><a href="tech-single.html" title="">03 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Jessica</a></small>
-                            </div><!-- end meta -->
-                        </div><!-- end shadow-desc -->
-                    </div><!-- end shadow -->
-                </div><!-- end post-media -->
-            </div><!-- end second-side -->
 
-            <div class="last-slot">
-                <div class="masonry-box post-media">
-                    <img src="{{ asset('frontend/upload/tech_03.jpg') }}" alt="" class="img-fluid">
-                    <div class="shadoweffect">
-                        <div class="shadow-desc">
-                            <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html"
-                                        title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">The most reliable Galaxy Note 8 images
-                                        leaked</a></h4>
-                                <small><a href="tech-single.html" title="">01 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Jessica</a></small>
-                            </div><!-- end meta -->
-                        </div><!-- end shadow-desc -->
-                    </div><!-- end shadow -->
-                </div><!-- end post-media -->
-            </div><!-- end second-side -->
         </div><!-- end masonry -->
     </div>
 </section>
+@endif

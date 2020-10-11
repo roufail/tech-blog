@@ -15,3 +15,14 @@ if(!function_exists('images_sizes')){
         ];
     }
 }
+
+
+
+if(!function_exists('fetch_image_by_size')){
+     function fetch_image_by_size($image,$size){
+       $image_arr = explode('.',$image);
+       $post_image = $image_arr[0]."-".$size.".".$image_arr[1];
+       return Storage::disk('posts')->url($post_image);
+
+    }
+}
