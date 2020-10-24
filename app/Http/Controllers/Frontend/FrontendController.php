@@ -21,7 +21,10 @@ class FrontendController extends Controller
     }
 
     public function post(Post $post) {
-        dd($post);
+        // dd($post);
+        $post->increment('post_views');
+        return view("frontend.postpage",compact('post'));
+
     }
 
 
