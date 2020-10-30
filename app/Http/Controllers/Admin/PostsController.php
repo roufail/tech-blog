@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
+
 use App\Http\Requests\Admin\TagRequest;
 use App\Http\Requests\Admin\PostRequest;
 class PostsController extends Controller
@@ -63,8 +65,10 @@ class PostsController extends Controller
     {
 
         $categories = Category::pluck('title','id');
-        $selected   = $post->categories->pluck('id')->toArray();
-        return view('admin.posts.form',compact('post','categories','selected'));
+        $tags = Tag::pluck('title','id');
+        $selected_categories   = $post->categories->pluck('id')->toArray();
+        $selected_tags         = $post->tags->pluck('id')->toArray();
+        return view('admin.posts.form',compact('post','categories','tags','selected_categories','selected_tags'));
     }
 
     /**
@@ -80,6 +84,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($post->id);
         $post->update($request->all());
         $post->categories()->sync($request->categories);
+        $post->tags()->sync($request->tags);
         return redirect()->route('admin.posts.index')->with(['success' => 'Post Updated']);
     }
 

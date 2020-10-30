@@ -57,10 +57,10 @@
     <div class="blog-title-area">
         <div class="tag-cloud-single">
             <span>Tags</span>
-            <small><a href="#" title="">lifestyle</a></small>
-            <small><a href="#" title="">colorful</a></small>
-            <small><a href="#" title="">trending</a></small>
-            <small><a href="#" title="">another tag</a></small>
+
+            @foreach ($post->tags as $tag)
+            <small><a href="#" title="{{ $tag->title}}">{{ $tag->title}}</a></small>
+            @endforeach
         </div><!-- end meta -->
 
         <div class="post-sharing">
@@ -85,6 +85,15 @@
     </div><!-- end row -->
 
     <hr class="invis1">
+    @php
+    $data = "example data varibale";
+    @endphp
+    <x-example :example-data="$data" class="col-md-12 smarian-galaxy">
+        Related Articles
+        <x-slot name="childData">
+            Child data
+        </x-slot>
+    </x-example>
 
     <div class="custombox prevnextpost clearfix">
         <div class="row">
