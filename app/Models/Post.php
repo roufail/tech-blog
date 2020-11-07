@@ -56,6 +56,10 @@ class Post extends Model
        return fetch_image_by_size($this->image,'460X530');
     }
 
+    public function getNextPreviousPostImage70X40Attribute() {
+       return fetch_image_by_size($this->image,'70X40');
+    }
+
 
 
 

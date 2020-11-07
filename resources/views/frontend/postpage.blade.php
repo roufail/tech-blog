@@ -85,49 +85,11 @@
     </div><!-- end row -->
 
     <hr class="invis1">
-    @php
-    $data = "example data varibale";
-    @endphp
-    <x-example :example-data="$data" class="col-md-12 smarian-galaxy">
-        Related Articles
-        <x-slot name="childData">
-            Child data
-        </x-slot>
-    </x-example>
 
-    <div class="custombox prevnextpost clearfix">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="blog-list-widget">
-                    <div class="list-group">
-                        <a href="tech-single.html"
-                            class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="w-100 justify-content-between text-right">
-                                <img src="upload/tech_menu_19.jpg" alt="" class="img-fluid float-right">
-                                <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
-                                <small>Prev Post</small>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div><!-- end col -->
 
-            <div class="col-lg-6">
-                <div class="blog-list-widget">
-                    <div class="list-group">
-                        <a href="tech-single.html"
-                            class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="w-100 justify-content-between">
-                                <img src="upload/tech_menu_20.jpg" alt="" class="img-fluid float-left">
-                                <h5 class="mb-1">Let's make an introduction to the glorious world of history</h5>
-                                <small>Next Post</small>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-    </div><!-- end author-box -->
+    <x-next-and-previous-posts-component :id="$post->id" />
+
+
 
     <hr class="invis1">
 
@@ -219,9 +181,12 @@
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading user_name">Amanda Martines <small>5 days ago</small></h4>
-                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft
-                                beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v
-                                laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag.
+                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed.
+                                Craft
+                                beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave
+                                deep v
+                                laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade
+                                swag.
                                 Selfies iPhone Kickstarter, drinking vinegar jean.</p>
                             <a href="#" class="btn btn-primary btn-sm">Reply</a>
                         </div>
@@ -234,8 +199,10 @@
 
                             <h4 class="media-heading user_name">Baltej Singh <small>5 days ago</small></h4>
 
-                            <p>Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra
-                                selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin coffee.
+                            <p>Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel
+                                Neutra
+                                selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin
+                                coffee.
                                 Banksy, elit small.</p>
 
                             <a href="#" class="btn btn-primary btn-sm">Reply</a>
