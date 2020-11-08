@@ -60,6 +60,9 @@ class Post extends Model
        return fetch_image_by_size($this->image,'70X40');
     }
 
+    public function getRelatedPostImage365X210Attribute() {
+       return fetch_image_by_size($this->image,'365X210');
+    }
 
 
 
