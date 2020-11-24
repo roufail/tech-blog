@@ -12,6 +12,7 @@ Route::group(['namespace' => 'Frontend','prefix' =>'','as'=>'frontend.'],functio
     Route::get("/category/{category}","FrontendController@category_page")->name('category');
     Route::get("/post/{post}","FrontendController@post")->name('post');
     Route::get("/author/{user}","FrontendController@author")->name('author');
+    Route::post('/post/comment/{post}',"FrontendController@comment")->name('post.comment');
 });
 
 

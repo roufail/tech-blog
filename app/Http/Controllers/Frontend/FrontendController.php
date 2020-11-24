@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use App\Http\Requests\Frontend\Requests\CommentRequest;
+
 class FrontendController extends Controller
 {
     public function home_page(){
@@ -22,9 +24,20 @@ class FrontendController extends Controller
 
     public function post(Post $post) {
         $post->increment('post_views');
-        $post->load(['categories','tags']);
-        return view("frontend.postpage",compact('post'));
+        $post->load(['categories','tags'])->loadCount(['comments' => function($comments){
+            $comments->where('approved',true);
+        }]);
+        $comments = $post->comments()
+                    ->orderby('created_at','desc')
+                    ->where('approved',true)
+                    ->with('user:id,name')
+                    ->paginate(5,['id','name','user_id','content','created_at']);
+        return view("frontend.postpage",compact('post','comments'));
+    }
 
+
+    public function comment(Post $post,CommentRequest $request) {
+        $post->comments()->create($request->validated());
     }
 
 
