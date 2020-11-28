@@ -24,9 +24,7 @@ class FrontendController extends Controller
 
     public function post(Post $post) {
         $post->increment('post_views');
-        $post->load(['categories','tags'])->loadCount(['comments' => function($comments){
-            $comments->where('approved',true);
-        }]);
+        $post->load(['categories','tags']);
         $comments = $post->comments()
                     ->orderby('created_at','desc')
                     ->where('approved',true)
