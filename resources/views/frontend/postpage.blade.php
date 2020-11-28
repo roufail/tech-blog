@@ -135,7 +135,7 @@
     <hr class="invis1">
     @if($comments->count() > 0)
     <div class="custombox clearfix">
-        <h4 class="small-title">{{$post->comments_count}} Comments</h4>
+        <h4 class="small-title">{{ $comments->total() }} Comments</h4>
         <div class="row">
             <div class="col-lg-12">
                 <div class="comments-list">
@@ -152,8 +152,6 @@
                         </div>
                     </div>
                     @endforeach
-
-
 
                 </div>
             </div><!-- end col -->
