@@ -49,6 +49,12 @@ class Post extends Model
     public function getHomePostImageAttribute() {
        return fetch_image_by_size($this->image,'250X210');
     }
+
+
+    public function getSidebarImageAttribute(){
+        return fetch_image_by_size($this->image,'55X45');
+    }
+
     public function getHomePostImage950X530Attribute() {
        return fetch_image_by_size($this->image,'950X530');
     }
@@ -63,6 +69,9 @@ class Post extends Model
     public function getRelatedPostImage365X210Attribute() {
        return fetch_image_by_size($this->image,'365X210');
     }
+
+
+
 
 
 
