@@ -104,25 +104,36 @@
             </div><!-- end col -->
 
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                <h4><a href="#">Jessica</a></h4>
-                <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a> amet, consectetur adipiscing
-                    elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus
-                    congue feugiat. Thanks for stop Tech Blog!</p>
+                <h4><a href="#">{{ $post->user->name }}</a></h4>
+
+                @if($user_meta_data && count($user_meta_data) > 0)
+
+                @if(isset($user_meta_data['bio']))
+                <p>{{ $user_meta_data['bio'] }}</p>
+                @endif
 
                 <div class="topsocial">
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
+                    @if(isset($user_meta_data['facebook']))
+                    <a href="{{$user_meta_data['facebook']}}" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
                             class="fa fa-facebook"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
+                    @endif  
+
+                    @if(isset($user_meta_data['youtube']))
+                    <a href="{{$user_meta_data['youtube']}}" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
                             class="fa fa-youtube"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i
-                            class="fa fa-pinterest"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
+                    @endif
+                    @if(isset($user_meta_data['twitter']))
+                    <a href="{{$user_meta_data['twitter']}}" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
                             class="fa fa-twitter"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
-                            class="fa fa-instagram"></i></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Website"><i
+                    @endif
+                    @if(isset($user_meta_data['website']))
+                    <a href="{{$user_meta_data['website']}}" data-toggle="tooltip" data-placement="bottom" title="Website"><i
                             class="fa fa-link"></i></a>
+                    @endif
+
                 </div><!-- end social -->
+                @endif
+
 
             </div><!-- end col -->
         </div><!-- end row -->

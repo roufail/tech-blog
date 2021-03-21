@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function meta_data()
+    {
+        return $this->hasMany(UserMeta::class);
+    }
 }
