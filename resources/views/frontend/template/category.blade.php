@@ -30,7 +30,7 @@
 
 
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                @include('frontend.template.components.sidebar')
+                <x-sidebar />
             </div><!-- end col -->
 
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">

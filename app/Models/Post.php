@@ -75,6 +75,9 @@ class Post extends Model
 
 
 
+
+
+
     public function getApprovedAttribute($value){
         return $value ? 'Approved' : 'Rejected';
     }

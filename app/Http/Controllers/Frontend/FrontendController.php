@@ -18,8 +18,9 @@ class FrontendController extends Controller
     }
 
     public function category_page(Category $category){
-        dd($category);
-        return view("frontend.categorypage");
+        $posts = $category->posts()->paginate(1,["posts.id","user_id","image","post_views","description","title","created_at","content"]);
+        $category->setRelation('posts',$posts);
+        return view("frontend.categorypage",compact('category'));
     }
 
     public function post(Post $post) {

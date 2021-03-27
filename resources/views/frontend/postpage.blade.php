@@ -29,8 +29,7 @@
         <h3>{{ $post->title }}</h3>
 
         <div class="blog-meta big-meta">
-            <small><a href="tech-single.html"
-                    title="{{ $post->created_at->format('d M,Y') }}">{{ $post->created_at->format('d M,Y') }}</a></small>
+            <small>{{ $post->created_at->format('d M,Y') }}</small>
             <small><a href="{{ route('frontend.author',$post->user->id) }}" title="{{ $post->user->name }}">by
                     {{ $post->user->name }}</a></small>
             <small><a href="#" title=""><i class="fa fa-eye"></i> {{ $post->post_views }}</a></small>

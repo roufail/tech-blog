@@ -46,7 +46,7 @@
                         title="">{{ $post->created_at->format('d M,Y') }}</a></small>
                 <small><a href="{{ route('frontend.author',$post->user->id) }}" title="">by
                         {{ $post->user->name }}</a></small>
-                <small><a href="{{ route('frontend.post',$post->id) }}" title=""><i class="fa fa-eye"></i> 0</a></small>
+                <small><a href="{{ route('frontend.post',$post->id) }}" title=""><i class="fa fa-eye"></i> {{ $post->post_views}}</a></small>
             </div><!-- end meta -->
         </div><!-- end blog-box -->
 
