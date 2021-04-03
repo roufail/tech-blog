@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-wrapper">
                             <div class="custombox authorbox clearfix">
-                                <h4 class="small-title">{{$user->name}}</h4>
+                                <h4 class="small-title">About author</h4>
                                 <div class="row">
                                     {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                         <img src="upload/author.jpg" alt="" class="img-fluid rounded-circle"> 
