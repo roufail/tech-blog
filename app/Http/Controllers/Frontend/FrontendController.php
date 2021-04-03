@@ -18,7 +18,7 @@ class FrontendController extends Controller
     }
 
     public function category_page(Category $category){
-        $posts = $category->posts()->paginate(1,["posts.id","user_id","image","post_views","description","title","created_at","content"]);
+        $posts = $category->posts()->paginate(10,["posts.id","user_id","image","post_views","description","title","created_at","content"]);
         $category->setRelation('posts',$posts);
         return view("frontend.categorypage",compact('category'));
     }
@@ -44,7 +44,11 @@ class FrontendController extends Controller
 
 
     public function author(User $user) {
-        dd($user);
+        $posts = $user->posts()->paginate(5,["posts.id","user_id","image","post_views","description","title","created_at","content"]);
+        $user->setRelation('posts',$posts);
+        $user_meta_data =$user->meta_data->pluck("meta_value","meta_key")->toArray();
+
+        return view("frontend.authorpage",compact('user','user_meta_data'));
     }
 
 }
